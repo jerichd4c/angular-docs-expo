@@ -1,0 +1,47 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+}
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: #1a1a2e;
+  color: #fff;
+  padding: 1.5rem 1rem;
+}
+
+.logo {
+  font-size: 1.3rem;
+  margin: 0 0 1.5rem;
+  color: #dd0031;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+nav a {
+  color: #ccc;
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+}
+
+nav a:hover {
+  background: #2a2a4a;
+  color: #fff;
+}
+
+nav a.activo {
+  background: #dd0031;
+  color: #fff;
+}
+
+.contenido {
+  flex: 1;
+  padding: 2rem 3rem;
+}
