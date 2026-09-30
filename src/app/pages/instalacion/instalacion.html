@@ -1,1 +1,69 @@
-<p>instalacion works!</p>
+<h2>1. Instalación y estructura del proyecto</h2>
+<p class="intro">
+  Angular es un framework de Google para construir aplicaciones web con <strong>TypeScript</strong>.
+  Todo se maneja desde el <strong>Angular CLI</strong>, una herramienta de terminal que crea, ejecuta y compila proyectos.
+</p>
+
+<section>
+  <h3>Requisitos previos</h3>
+  <p>
+    Angular necesita <strong>Node.js</strong>, que incluye <strong>npm</strong> (el gestor de paquetes).
+    Se descarga desde nodejs.org; se recomienda la versión LTS.
+  </p>
+  <app-codigo [codigo]="codigoRequisitos" />
+</section>
+
+<section>
+  <h3>Instalar el Angular CLI</h3>
+  <p>Se instala una sola vez de forma global, para usar el comando <code>ng</code> desde cualquier carpeta.</p>
+  <app-codigo [codigo]="codigoCli" />
+</section>
+
+<section>
+  <h3>Crear y ejecutar un proyecto</h3>
+  <p>
+    <code>ng new</code> crea el proyecto con todo configurado. Durante la creación, el CLI pregunta
+    qué asistentes de IA configurar (por ejemplo Claude Code). La opción <code>--ssr</code> activa el
+    renderizado en el servidor desde el inicio. Luego <code>ng serve</code> levanta la app en
+    <strong>http://localhost:4200</strong> y la recarga automáticamente con cada cambio.
+  </p>
+  <app-codigo [codigo]="codigoNuevo" />
+</section>
+
+<section>
+  <h3>Estructura del proyecto</h3>
+  <p>Esta es la estructura real de esta documentación. Casi todo el trabajo se hace dentro de <code>src/app</code>.</p>
+  <app-codigo [codigo]="codigoEstructura" />
+</section>
+
+<section>
+  <h3>Archivos clave</h3>
+  <table>
+    <thead>
+      <tr><th>Archivo</th><th>Función</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>main.ts</code></td><td>Arranca la aplicación cargando el componente raíz.</td></tr>
+      <tr><td><code>index.html</code></td><td>La única página HTML; Angular dibuja todo dentro de <code>&lt;app-root&gt;</code>.</td></tr>
+      <tr><td><code>app.ts</code></td><td>Componente raíz: el primero que se muestra y contiene a los demás.</td></tr>
+      <tr><td><code>app.config.ts</code></td><td>Registra servicios globales: router, cliente HTTP, hidratación.</td></tr>
+      <tr><td><code>angular.json</code></td><td>Le dice al CLI cómo compilar, servir y probar el proyecto.</td></tr>
+      <tr><td><code>package.json</code></td><td>Lista las librerías que usa el proyecto y sus versiones.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h3>Comandos más usados</h3>
+  <app-codigo [codigo]="codigoComandos" />
+</section>
+
+<section class="puntos-clave">
+  <h3>Puntos clave</h3>
+  <ul>
+    <li>Angular requiere Node.js y se maneja con el CLI (<code>ng</code>).</li>
+    <li><code>ng new</code> crea el proyecto y <code>ng serve</code> lo ejecuta.</li>
+    <li>El código de la aplicación vive en <code>src/app</code>.</li>
+    <li>Es una SPA: hay un solo <code>index.html</code> y Angular cambia su contenido.</li>
+  </ul>
+</section>
