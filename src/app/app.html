@@ -1,6 +1,7 @@
-<div class="layout">
+<div class="layout" [class.oscuro]="tema.oscuro()">
   <aside class="sidebar">
-    <h1 class>Angular Docs</h1>
+    <h1 class="logo">Angular Docs</h1>
+    <app-indicador-tema/>
     <nav>
       <a routerLink="/instalacion" routerLinkActive="activo">1. Instalación y estructura</a>
       <a routerLink="/componentes" routerLinkActive="activo">2. Componentes y sintaxis</a>

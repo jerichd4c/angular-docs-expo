@@ -45,3 +45,8 @@ nav a.activo {
   flex: 1;
   padding: 2rem 3rem;
 }
+
+.layout.oscuro .contenido {
+  background: #121212;
+  color: #eee;
+}

@@ -1,1 +1,10 @@
-<p>comunicacion works!</p>
+<h2>3. Props y comunicación entre componentes</h2>
+
+<h3>Padre → Hijo con input()</h3>
+<app-etiqueta texto="Angular" />
+<app-etiqueta texto="Signals" color="#1976d2" />
+<app-etiqueta texto="Componentes" color="#ff9800" />
+
+<h3>Hijo → Padre con output()</h3>
+<app-me-gusta (cambio)="alCambiar($event)" />
+<p>{{ mensaje() }}</p>
