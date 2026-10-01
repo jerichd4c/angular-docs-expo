@@ -34,6 +34,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/routing/routing').then(m => m.Routing)
   },
   {
+    path: 'routing/:framework',
+    title: 'Routing y navegación',
+    loadComponent: () => import('./pages/routing/routing').then(m => m.Routing)
+  },
+  {
     path: 'apis',
     title: 'Consumo de APIs',
     loadComponent: () => import('./pages/apis/apis').then(m => m.Apis)

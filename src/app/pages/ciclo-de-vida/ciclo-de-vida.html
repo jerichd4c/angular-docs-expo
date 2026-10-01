@@ -1,1 +1,74 @@
-<p>ciclo-de-vida works!</p>
+<h2>5. Ciclo de vida</h2>
+<p class="intro">
+  Cada componente pasa por etapas: se <strong>crea</strong>, se <strong>muestra</strong>,
+  se <strong>actualiza</strong> y finalmente se <strong>destruye</strong>. Angular ofrece
+  <strong>hooks</strong> (métodos especiales) para ejecutar código en cada uno de esos momentos.
+</p>
+
+<section>
+  <h3>Orden de ejecución</h3>
+  <p>Angular llama a estos métodos automáticamente, siempre en este orden:</p>
+  <app-codigo [codigo]="codigoOrden" />
+</section>
+
+<section>
+  <h3>ngOnInit y ngOnDestroy: los más usados</h3>
+  <p>
+    <code>ngOnInit</code> se usa para inicializar: en ese momento los inputs ya tienen valor, cosa
+    que no pasa en el <code>constructor</code>. <code>ngOnDestroy</code> se usa para limpiar.
+    Para usarlos, la clase implementa las interfaces <code>OnInit</code> y <code>OnDestroy</code>.
+  </p>
+  <app-codigo [codigo]="codigoHooks" />
+</section>
+
+<section>
+  <h3>afterNextRender y afterEveryRender</h3>
+  <p>
+    Se ejecutan <strong>después</strong> de que el navegador dibuja el componente. Sirven para medir
+    elementos, usar librerías que manipulan el DOM o acceder a <code>window</code> y <code>document</code>.
+    No se ejecutan en el servidor, así que son clave cuando se usa SSR (página 10).
+  </p>
+  <app-codigo [codigo]="codigoRender" />
+</section>
+
+<section>
+  <h3>¿Por qué es importante limpiar?</h3>
+  <p>
+    Si un componente inicia un intervalo y no lo detiene al destruirse, el intervalo
+    <strong>sigue corriendo para siempre</strong> aunque el componente ya no exista. Eso es una
+    <em>fuga de memoria</em>. Además de <code>ngOnDestroy</code>, se puede usar <code>DestroyRef</code>
+    para registrar la limpieza justo donde se crea el recurso.
+  </p>
+  <app-codigo [codigo]="codigoDestroyRef" />
+</section>
+
+<section>
+  <h3>Demo en vivo</h3>
+  <p>
+    Abran la consola del navegador (<strong>F12 → Consola</strong>) y usen el botón para crear y destruir
+    el reloj. Verán los mensajes de cada hook en orden. Si el reloj está creado y cambian de página,
+    también verán <code>ngOnDestroy</code>.
+  </p>
+  <div class="demo">
+    <button (click)="alternarReloj()">
+      {{ mostrarReloj() ? 'Destruir reloj' : 'Crear reloj' }}
+    </button>
+
+    @if (mostrarReloj()) {
+      <app-reloj />
+    } @else {
+      <span>El reloj no existe</span>
+    }
+  </div>
+  <app-codigo [codigo]="codigoReloj" />
+</section>
+
+<section class="puntos-clave">
+  <h3>Puntos clave</h3>
+  <ul>
+    <li>Los hooks permiten ejecutar código en momentos específicos de la vida de un componente.</li>
+    <li><code>ngOnInit</code> para inicializar (los inputs ya tienen valor); <code>ngOnDestroy</code> para limpiar.</li>
+    <li><code>afterNextRender</code> se ejecuta solo en el navegador, después de dibujar.</li>
+    <li>No limpiar intervalos o suscripciones provoca fugas de memoria.</li>
+  </ul>
+</section>

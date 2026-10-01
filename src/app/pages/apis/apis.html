@@ -1,1 +1,99 @@
-<p>apis works!</p>
+<h2>7. Consumo de APIs</h2>
+<p class="intro">
+  La mayoría de las aplicaciones obtienen sus datos de un servidor a través de una
+  <strong>API</strong>. Angular incluye su propio cliente HTTP para hacer peticiones
+  (<code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code>) y recibir
+  las respuestas en formato JSON.
+</p>
+
+<section>
+  <h3>Configuración</h3>
+  <p>
+    Antes de hacer peticiones hay que registrar el cliente HTTP en <code>app.config.ts</code>.
+    <code>withFetch()</code> hace que use la API <code>fetch</code> del navegador, recomendada cuando se usa SSR.
+  </p>
+  <app-codigo [codigo]="codigoConfig" />
+</section>
+
+<section>
+  <h3>HttpClient: la forma clásica</h3>
+  <p>
+    El servicio <code>HttpClient</code> tiene un método por cada tipo de petición. Devuelve un
+    <strong>Observable</strong> (de la librería RxJS): la petición se envía al llamar a
+    <code>subscribe()</code>, que recibe la respuesta.
+  </p>
+  <app-codigo [codigo]="codigoHttpClient" />
+</section>
+
+<section>
+  <h3>httpResource: la forma moderna con signals</h3>
+  <p>
+    <code>httpResource</code> hace la petición y expone el resultado como signals. Si la URL depende
+    de otro signal, <strong>la petición se repite sola</strong> cada vez que ese signal cambia.
+    No hace falta <code>subscribe()</code> ni <code>ngOnInit</code>.
+  </p>
+  <app-codigo [codigo]="codigoHttpResource" />
+</section>
+
+<section>
+  <h3>Estados de una petición</h3>
+  <p>
+    Una petición tarda y puede fallar, así que la interfaz debe contemplar tres estados:
+    <strong>cargando</strong>, <strong>error</strong> y <strong>éxito</strong>.
+    <code>httpResource</code> ofrece un signal para cada uno.
+  </p>
+  <app-codigo [codigo]="codigoEstados" />
+</section>
+
+<section>
+  <h3>Interceptores</h3>
+  <p>
+    Un <strong>interceptor</strong> es una función que se ejecuta en todas las peticiones antes de enviarlas.
+    Se usa para agregar tokens de autenticación, registrar errores o mostrar un indicador de carga global.
+  </p>
+  <app-codigo [codigo]="codigoInterceptor" />
+</section>
+
+<section>
+  <h3>Demo en vivo</h3>
+
+  <p><strong>Frase aleatoria:</strong> hagan clic en la frase para pedir otra a la API.</p>
+  <div class="demo">
+    <app-frase-aleatoria />
+  </div>
+
+  <p>
+    <strong>Petición reactiva:</strong> cada vez que cambia el ID se hace una nueva petición a
+    <code>dummyjson.com/users/ID</code>. El último botón pide un usuario que no existe para ver el error.
+  </p>
+  <div class="demo">
+    <button (click)="anterior()">◀ Anterior</button>
+    <span>ID: <strong>{{ usuarioId() }}</strong></span>
+    <button (click)="siguiente()">Siguiente ▶</button>
+    <button (click)="provocarError()">Provocar error</button>
+  </div>
+  <div class="demo">
+    @if (usuario.isLoading()) {
+      <span>Cargando...</span>
+    } @else if (usuario.error()) {
+      <span>❌ No se encontró el usuario {{ usuarioId() }}</span>
+    } @else if (usuario.hasValue()) {
+      <img [src]="usuario.value().image" alt="" width="64" height="64" />
+      <span>
+        <strong>{{ usuario.value().firstName }} {{ usuario.value().lastName }}</strong><br />
+        {{ usuario.value().email }}
+      </span>
+    }
+  </div>
+</section>
+
+<section class="puntos-clave">
+  <h3>Puntos clave</h3>
+  <ul>
+    <li>Se habilita con <code>provideHttpClient()</code> en <code>app.config.ts</code>.</li>
+    <li><code>HttpClient</code> devuelve Observables y se usa con <code>subscribe()</code>.</li>
+    <li><code>httpResource</code> expone la respuesta como signals y se repite sola cuando cambian sus dependencias.</li>
+    <li>Toda petición tiene tres estados: cargando, error y éxito.</li>
+    <li>Los interceptores modifican todas las peticiones en un solo lugar.</li>
+  </ul>
+</section>

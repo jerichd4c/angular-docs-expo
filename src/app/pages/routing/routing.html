@@ -1,1 +1,93 @@
-<p>routing works!</p>
+<h2>6. Routing y navegación</h2>
+<p class="intro">
+  El <strong>router</strong> de Angular asocia cada URL con un componente. Así una sola página HTML
+  (una SPA) puede tener varias "pantallas" y navegar entre ellas <strong>sin recargar</strong>.
+  Esta misma documentación funciona así: cada tema del menú es una ruta.
+</p>
+
+<section>
+  <h3>Definir las rutas</h3>
+  <p>
+    Las rutas se definen en <code>app.routes.ts</code> como una lista de objetos. Cada ruta indica
+    un <code>path</code> (la URL) y el componente que se muestra. Con <code>loadComponent</code>,
+    el código de cada página se descarga solo cuando se visita (<strong>lazy loading</strong>).
+  </p>
+  <app-codigo [codigo]="codigoRutas" />
+</section>
+
+<section>
+  <h3>routerLink, routerLinkActive y router-outlet</h3>
+  <ul>
+    <li><code>routerLink</code>: navega a otra ruta sin recargar la página.</li>
+    <li><code>routerLinkActive</code>: agrega una clase CSS al enlace de la ruta actual.</li>
+    <li><code>&lt;router-outlet /&gt;</code>: el lugar donde se muestra el componente de la ruta.</li>
+  </ul>
+  <app-codigo [codigo]="codigoPlantilla" />
+</section>
+
+<section>
+  <h3>Parámetros de ruta</h3>
+  <p>
+    Una ruta puede tener partes variables, marcadas con <code>:</code>. Por ejemplo,
+    <code>routing/:framework</code> acepta <code>/routing/angular</code>, <code>/routing/vue</code>, etc.
+    Con <code>withComponentInputBinding()</code>, el valor llega al componente como un <code>input()</code>.
+  </p>
+  <app-codigo [codigo]="codigoParametros" />
+</section>
+
+<section>
+  <h3>Navegar desde código</h3>
+  <p>
+    Además de los enlaces, se puede navegar desde la clase con el servicio <code>Router</code>.
+    Es útil después de una acción: guardar un formulario, iniciar sesión, etc.
+  </p>
+  <app-codigo [codigo]="codigoNavegar" />
+</section>
+
+<section>
+  <h3>Guards: proteger rutas</h3>
+  <p>
+    Un <strong>guard</strong> es una función que decide si el usuario puede entrar a una ruta.
+    Si no puede, se le redirige a otra (por ejemplo, al login).
+  </p>
+  <app-codigo [codigo]="codigoGuard" />
+</section>
+
+<section>
+  <h3>Demo en vivo</h3>
+
+  <p><strong>Parámetros:</strong> hagan clic en un framework y miren cómo cambia la URL del navegador.</p>
+  <div class="demo">
+    @for (fw of frameworks; track fw) {
+      <a [routerLink]="['/routing', fw]" routerLinkActive="activo">{{ fw }}</a>
+    }
+
+    @if (framework()) {
+      <span>Parámetro recibido: <strong>{{ framework() }}</strong></span>
+    } @else {
+      <span>No hay parámetro en la URL</span>
+    }
+  </div>
+
+  <p><strong>Navegación desde código:</strong></p>
+  <div class="demo">
+    <button (click)="irAlAzar()">Ir a un framework al azar</button>
+    <button (click)="irAEstado()">Ir a la página de Estado</button>
+  </div>
+
+  <p>
+    <strong>Lazy loading:</strong> abran <strong>F12 → Red (Network)</strong>, filtren por <strong>JS</strong>
+    y naveguen a una página que no hayan visitado. Verán que su archivo se descarga en ese momento.
+  </p>
+</section>
+
+<section class="puntos-clave">
+  <h3>Puntos clave</h3>
+  <ul>
+    <li>Las rutas asocian una URL con un componente y se definen en <code>app.routes.ts</code>.</li>
+    <li><code>routerLink</code> navega sin recargar; <code>&lt;router-outlet /&gt;</code> muestra la página.</li>
+    <li>Los parámetros (<code>:id</code>) permiten URLs dinámicas y llegan como inputs.</li>
+    <li><code>loadComponent</code> carga cada página solo cuando se visita.</li>
+    <li>Los guards controlan quién puede entrar a cada ruta.</li>
+  </ul>
+</section>
