@@ -1,10 +1,73 @@
 <h2>3. Props y comunicación entre componentes</h2>
+<p class="intro">
+  Los componentes necesitan compartir información. En Angular, el padre envía datos al hijo con
+  <strong>inputs</strong> (lo que en otros frameworks se llama <em>props</em>) y el hijo avisa al padre
+  con <strong>outputs</strong> (eventos).
+</p>
 
-<h3>Padre → Hijo con input()</h3>
-<app-etiqueta texto="Angular" />
-<app-etiqueta texto="Signals" color="#1976d2" />
-<app-etiqueta texto="Componentes" color="#ff9800" />
+<section>
+  <h3>El flujo de datos</h3>
+  <p>
+    La comunicación es en una sola dirección para cada caso: los datos bajan y los eventos suben.
+    Así siempre se sabe quién es el dueño de cada dato.
+  </p>
+  <app-codigo [codigo]="codigoFlujo" />
+</section>
 
-<h3>Hijo → Padre con output()</h3>
-<app-me-gusta (cambio)="alCambiar($event)" />
-<p>{{ mensaje() }}</p>
+<section>
+  <h3>input(): del padre al hijo</h3>
+  <p>
+    El hijo declara qué datos acepta con <code>input()</code>. Puede ser obligatorio
+    (<code>input.required()</code>) u opcional con un valor por defecto. Dentro del hijo,
+    el input se lee como un signal: <code>texto()</code>.
+  </p>
+  <app-codigo [codigo]="codigoInputHijo" />
+  <p>El padre le pasa los valores como atributos de la etiqueta:</p>
+  <app-codigo [codigo]="codigoInputPadre" />
+</section>
+
+<section>
+  <h3>output(): del hijo al padre</h3>
+  <p>
+    El hijo declara un evento con <code>output()</code> y lo dispara con <code>emit()</code>.
+    El padre lo escucha con event binding, igual que un <code>(click)</code>.
+  </p>
+  <app-codigo [codigo]="codigoOutputHijo" />
+  <app-codigo [codigo]="codigoOutputPadre" />
+</section>
+
+<section>
+  <h3>model(): comunicación en dos direcciones</h3>
+  <p>
+    Cuando padre e hijo necesitan modificar el mismo valor, <code>model()</code> combina un input
+    y un output. El padre usa la sintaxis <code>[( )]</code>, conocida como "banana in a box".
+  </p>
+  <app-codigo [codigo]="codigoModel" />
+</section>
+
+<section>
+  <h3>Demo en vivo</h3>
+
+  <p><strong>Padre → Hijo:</strong> esta página (el padre) guarda el texto y el color, y se los pasa a la etiqueta (el hijo).</p>
+  <div class="demo">
+    <label>Texto: <input [value]="texto()" (input)="cambiarTexto($event)" /></label>
+    <label>Color: <input type="color" [value]="color()" (input)="cambiarColor($event)" /></label>
+    <app-etiqueta [texto]="texto()" [color]="color()" />
+  </div>
+
+  <p><strong>Hijo → Padre:</strong> el corazón (el hijo) avisa cada vez que cambia, y esta página actualiza el mensaje.</p>
+  <div class="demo">
+    <app-me-gusta (cambio)="alCambiar($event)" />
+    <span>{{ mensaje() }}</span>
+  </div>
+</section>
+
+<section class="puntos-clave">
+  <h3>Puntos clave</h3>
+  <ul>
+    <li><code>input()</code> recibe datos del padre; se lee como signal: <code>nombre()</code>.</li>
+    <li><code>output()</code> declara un evento; se dispara con <code>emit()</code> y el padre lo recibe en <code>$event</code>.</li>
+    <li><code>model()</code> permite que padre e hijo modifiquen el mismo valor con <code>[( )]</code>.</li>
+    <li>Para comunicar componentes que no son padre e hijo se usa un servicio (página 8).</li>
+  </ul>
+</section>

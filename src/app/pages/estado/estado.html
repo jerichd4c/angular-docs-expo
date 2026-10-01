@@ -1,1 +1,85 @@
-<p>estado works!</p>
+<h2>4. Estado y reactividad</h2>
+<p class="intro">
+  El <strong>estado</strong> son los datos de una aplicación que cambian con el tiempo: un contador,
+  un usuario conectado, una lista de productos. La <strong>reactividad</strong> es la capacidad de que
+  la interfaz se actualice sola cuando ese estado cambia. Angular lo logra con <strong>signals</strong>.
+</p>
+
+<section>
+  <h3>¿Cómo funciona la reactividad?</h3>
+  <p>
+    Un signal es un valor que avisa cuando cambia. Cada vez que una plantilla, un <code>computed</code>
+    o un <code>effect</code> lee un signal, Angular registra esa dependencia. Cuando el signal cambia,
+    Angular actualiza <strong>solo</strong> lo que depende de él, sin revisar toda la página.
+  </p>
+  <app-codigo [codigo]="codigoFlujo" />
+</section>
+
+<section>
+  <h3>signal(): crear y modificar estado</h3>
+  <p>
+    Un signal guarda un valor. Se lee llamándolo como función, <code>contador()</code>, y se
+    modifica con <code>set()</code> o <code>update()</code>. Con arreglos y objetos siempre se crea
+    uno nuevo, para que Angular detecte el cambio.
+  </p>
+  <app-codigo [codigo]="codigoSignal" />
+</section>
+
+<section>
+  <h3>computed(): valores derivados</h3>
+  <p>
+    Un <code>computed</code> se calcula a partir de otros signals y se actualiza automáticamente cuando
+    alguno cambia. Es de solo lectura: no tiene <code>set()</code> ni <code>update()</code>.
+  </p>
+  <app-codigo [codigo]="codigoComputed" />
+</section>
+
+<section>
+  <h3>effect(): reaccionar a cambios</h3>
+  <p>
+    Un <code>effect</code> ejecuta código cada vez que cambian los signals que usa. Sirve para acciones
+    que están <strong>fuera</strong> de la plantilla: escribir en la consola, guardar en localStorage,
+    cambiar el título de la pestaña. Se crea dentro del <code>constructor</code>.
+  </p>
+  <app-codigo [codigo]="codigoEffect" />
+</section>
+
+<section>
+  <h3>¿Cuál usar?</h3>
+  <table>
+    <thead>
+      <tr><th></th><th>¿Qué es?</th><th>¿Se modifica a mano?</th><th>Úsalo para...</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>signal()</code></td><td>Un valor que cambia</td><td>Sí</td><td>Guardar estado</td></tr>
+      <tr><td><code>computed()</code></td><td>Un valor calculado de otros</td><td>No</td><td>Derivar datos (totales, filtros, textos)</td></tr>
+      <tr><td><code>effect()</code></td><td>Código que se re-ejecuta</td><td>No devuelve valor</td><td>Efectos externos (consola, storage, título)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h3>Demo en vivo</h3>
+  <p>
+    Cada corazón tiene su propio <code>signal</code>. La página suma los me gusta en otro signal,
+    muestra el texto con un <code>computed</code> y, con un <code>effect</code>,
+    <strong>cambia el título de la pestaña del navegador</strong>. ¡Mírenlo arriba!
+  </p>
+  <div class="demo">
+    <app-me-gusta (cambio)="alCambiar($event)" />
+    <app-me-gusta (cambio)="alCambiar($event)" />
+    <app-me-gusta (cambio)="alCambiar($event)" />
+    <strong>{{ resumen() }}</strong>
+  </div>
+  <app-codigo [codigo]="codigoDemo" />
+</section>
+
+<section class="puntos-clave">
+  <h3>Puntos clave</h3>
+  <ul>
+    <li>Un signal se lee con <code>nombre()</code> y se modifica con <code>set()</code> o <code>update()</code>.</li>
+    <li><code>computed()</code> crea valores derivados que se actualizan solos.</li>
+    <li><code>effect()</code> ejecuta acciones externas cuando cambian los signals.</li>
+    <li>Angular actualiza solo la parte de la vista que depende del signal que cambió.</li>
+  </ul>
+</section>

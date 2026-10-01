@@ -1,1 +1,83 @@
-<p>componentes works!</p>
+<h2>2. Componentes y sintaxis base</h2>
+<p class="intro">
+  En Angular la interfaz se construye con <strong>componentes</strong>: piezas reutilizables que combinan
+  lógica (TypeScript), estructura (HTML) y estilo (CSS). Una aplicación es un árbol de componentes,
+  empezando por el componente raíz <code>App</code>.
+</p>
+
+<section>
+  <h3>Anatomía de un componente</h3>
+  <p>
+    Un componente es una clase de TypeScript con el decorador <code>&#64;Component</code>,
+    que le indica a Angular cómo usarla y mostrarla.
+  </p>
+  <app-codigo [codigo]="codigoComponente" />
+
+  <table>
+    <thead>
+      <tr><th>Propiedad</th><th>Función</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>selector</code></td><td>Nombre de la etiqueta HTML con la que se usa el componente.</td></tr>
+      <tr><td><code>imports</code></td><td>Componentes y directivas que se pueden usar dentro de su plantilla.</td></tr>
+      <tr><td><code>templateUrl</code> / <code>template</code></td><td>El HTML, en un archivo aparte o escrito directamente en el <code>.ts</code>.</td></tr>
+      <tr><td><code>styleUrl</code> / <code>styles</code></td><td>El CSS, que por defecto solo afecta a este componente (encapsulación).</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h3>Sintaxis de plantillas: bindings</h3>
+  <p>Los bindings conectan los datos de la clase con el HTML:</p>
+  <ul>
+    <li><strong>Interpolación</strong> <code>{{ '{' }}{{ '{' }} {{ '}' }}{{ '}' }}</code>: muestra un valor como texto.</li>
+    <li><strong>Property binding</strong> <code>[propiedad]</code>: asigna un valor a una propiedad de un elemento.</li>
+    <li><strong>Event binding</strong> <code>(evento)</code>: ejecuta un método cuando ocurre un evento.</li>
+  </ul>
+  <app-codigo [codigo]="codigoBindings" />
+</section>
+
+<section>
+  <h3>Control de flujo</h3>
+  <p>
+    Angular tiene bloques propios para mostrar contenido según condiciones o repetirlo por cada elemento
+    de una lista: <code>&#64;if</code>, <code>&#64;for</code> y <code>&#64;switch</code>.
+    En <code>&#64;for</code>, <code>track</code> es obligatorio: le dice a Angular cómo identificar cada
+    elemento para actualizar solo los que cambian.
+  </p>
+  <app-codigo [codigo]="codigoControl" />
+</section>
+
+<section>
+  <h3>Demo en vivo</h3>
+  <p>
+    Las etiquetas se generan con <code>&#64;for</code>, cada una recibe sus datos por property binding,
+    responde al clic con event binding, y el mensaje cambia con <code>&#64;if</code>.
+  </p>
+  <div class="demo">
+    @for (fw of frameworks; track fw.nombre) {
+      <app-etiqueta
+        [texto]="fw.nombre"
+        [color]="fw.color"
+        (click)="seleccionar(fw.nombre)"
+        style="cursor: pointer" />
+    }
+
+    @if (seleccionado()) {
+      <p>Elegiste: <strong>{{ seleccionado() }}</strong></p>
+    } @else {
+      <p>Haz clic en una etiqueta</p>
+    }
+  </div>
+  <app-codigo [codigo]="codigoDemo" />
+</section>
+
+<section class="puntos-clave">
+  <h3>Puntos clave</h3>
+  <ul>
+    <li>Un componente = clase TypeScript + decorador <code>&#64;Component</code> + plantilla + estilos.</li>
+    <li><code>{{ '{' }}{{ '{' }} {{ '}' }}{{ '}' }}</code> muestra datos, <code>[ ]</code> asigna propiedades y <code>( )</code> escucha eventos.</li>
+    <li><code>&#64;if</code>, <code>&#64;for</code> y <code>&#64;switch</code> controlan qué se muestra.</li>
+    <li>Los estilos de un componente no afectan al resto de la aplicación.</li>
+  </ul>
+</section>
