@@ -1,1 +1,110 @@
-<p>ssr works!</p>
+<h2>10. SSR (Server-Side Rendering)</h2>
+<p class="intro">
+  Normalmente el navegador recibe una página vacía y Angular la dibuja con JavaScript. Con
+  <strong>SSR</strong>, Angular se ejecuta primero <strong>en el servidor</strong> y envía la página
+  ya dibujada. El usuario ve el contenido antes y los buscadores pueden leerlo.
+  Esta documentación usa SSR desde que se creó con <code>ng new --ssr</code>.
+</p>
+
+<section>
+  <h3>CSR frente a SSR</h3>
+  <p>La diferencia está en quién dibuja el HTML la primera vez:</p>
+  <app-codigo [codigo]="codigoComparacion" />
+  <table>
+    <thead>
+      <tr><th>Beneficio</th><th>Por qué</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Carga más rápida</strong></td><td>El contenido se ve sin esperar a que se descargue y ejecute el JavaScript.</td></tr>
+      <tr><td><strong>SEO</strong></td><td>Google y otros buscadores reciben el texto completo de la página.</td></tr>
+      <tr><td><strong>Vista previa en redes</strong></td><td>WhatsApp, X o LinkedIn pueden mostrar el título e imagen del enlace.</td></tr>
+      <tr><td><strong>Dispositivos lentos</strong></td><td>El trabajo pesado del primer dibujado lo hace el servidor.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h3>Archivos que agrega el SSR</h3>
+  <p>
+    Con <code>--ssr</code>, el CLI agrega un servidor (Express) que ejecuta la misma aplicación Angular.
+    No hay que escribir dos versiones: el mismo código corre en el servidor y en el navegador.
+  </p>
+  <app-codigo [codigo]="codigoArchivos" />
+</section>
+
+<section>
+  <h3>Modos de renderizado por ruta</h3>
+  <p>
+    En <code>app.routes.server.ts</code> se elige cómo se genera cada ruta. En esta documentación todo
+    usa <strong>Prerender</strong>: el HTML se genera al compilar, porque el contenido no cambia.
+    Por eso en la página 6 tuvimos que indicar qué parámetros prerenderizar.
+  </p>
+  <app-codigo [codigo]="codigoModos" />
+</section>
+
+<section>
+  <h3>Hidratación</h3>
+  <p>
+    Cuando llega el JavaScript, Angular no vuelve a dibujar la página: <strong>reutiliza el HTML</strong>
+    que mandó el servidor y le conecta los eventos y los signals. A esto se le llama
+    <strong>hidratación</strong>. Con <code>withEventReplay()</code>, si el usuario hace clic antes de que
+    cargue el JavaScript, el clic no se pierde.
+  </p>
+  <app-codigo [codigo]="codigoHidratacion" />
+</section>
+
+<section>
+  <h3>Cuidado: el servidor no es un navegador</h3>
+  <p>
+    En el servidor no existen <code>window</code>, <code>document</code> ni <code>localStorage</code>.
+    El código que los use debe ejecutarse solo en el navegador, con <code>afterNextRender</code>
+    (página 5) o comprobando la plataforma con <code>isPlatformBrowser</code>.
+  </p>
+  <app-codigo [codigo]="codigoNavegador" />
+</section>
+
+<section>
+  <h3>Demo en vivo</h3>
+
+  <p>
+    <strong>1. ¿Quién dibujó esta página?</strong> Recarguen (<strong>F5</strong>) estando en esta página.
+    La primera fecha la generó el servidor y viajó dentro del HTML; la segunda es el momento en que
+    el navegador hidrató la página.
+  </p>
+  <div class="demo">
+    <span>🖥️ HTML generado en el servidor: <strong>{{ fechaServidor }}</strong></span>
+    <span>🌐 Hidratado en el navegador: <strong>{{ fechaNavegador() ?? 'todavía no...' }}</strong></span>
+  </div>
+  <app-codigo [codigo]="codigoDemo" />
+
+  <p>
+    <strong>2. Ver el HTML que envía el servidor:</strong> presionen <strong>Ctrl + U</strong>. Todo el texto
+    de esta página aparece en el código fuente. Sin SSR, solo se vería <code>&lt;app-root&gt;&lt;/app-root&gt;</code> vacío.
+  </p>
+
+  <p>
+    <strong>3. Desactivar JavaScript:</strong> abran <strong>F12</strong>, presionen <strong>Ctrl + Shift + P</strong>,
+    escriban <em>Disable JavaScript</em> y recarguen. La página se sigue viendo completa, pero las demos
+    ya no funcionan porque no hay hidratación. Para volver, repitan con <em>Enable JavaScript</em>.
+  </p>
+</section>
+
+<section>
+  <h3>Ejecutar en producción</h3>
+  <p>
+    <code>ng serve</code> ya usa SSR durante el desarrollo. Para la versión final se compila y se ejecuta
+    el servidor generado. Las rutas prerenderizadas también pueden publicarse como archivos estáticos.
+  </p>
+  <app-codigo [codigo]="codigoProduccion" />
+</section>
+
+<section class="puntos-clave">
+  <h3>Puntos clave</h3>
+  <ul>
+    <li>Con SSR, el servidor envía la página ya dibujada: carga más rápida y mejor SEO.</li>
+    <li>La hidratación reutiliza ese HTML y lo vuelve interactivo sin dibujarlo de nuevo.</li>
+    <li>Cada ruta puede ser Prerender (al compilar), Server (en cada petición) o Client (sin SSR).</li>
+    <li>En el servidor no hay <code>window</code> ni <code>localStorage</code>: usar <code>afterNextRender</code>.</li>
+    <li>Se activa con <code>ng new --ssr</code> o <code>ng add &#64;angular/ssr</code>.</li>
+  </ul>
+</section>
