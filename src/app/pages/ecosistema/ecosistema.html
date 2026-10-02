@@ -1,1 +1,133 @@
-<p>ecosistema works!</p>
+<h2>9. Ecosistema, rendimiento y casos de uso</h2>
+<p class="intro">
+  Angular no es solo una librería para dibujar interfaces: es un <strong>framework completo</strong>.
+  Trae incluido lo necesario para construir una aplicación (routing, HTTP, formularios, pruebas, SSR)
+  y lo mantiene Google, con una versión mayor cada 6 meses.
+</p>
+
+<section>
+  <h3>El ecosistema de Angular</h3>
+  <table>
+    <thead>
+      <tr><th>Herramienta</th><th>Para qué sirve</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Angular CLI</strong></td><td>Crear, generar, compilar, probar y actualizar proyectos.</td></tr>
+      <tr><td><strong>Angular Material / CDK</strong></td><td>Componentes visuales oficiales con Material Design (botones, tablas, diálogos).</td></tr>
+      <tr><td><strong>Angular DevTools</strong></td><td>Extensión del navegador para inspeccionar componentes, signals y rendimiento.</td></tr>
+      <tr><td><strong>RxJS</strong></td><td>Programación reactiva con Observables (la usa <code>HttpClient</code>).</td></tr>
+      <tr><td><strong>NgRx</strong></td><td>Manejo de estado global para aplicaciones grandes.</td></tr>
+      <tr><td><strong>Ionic / Capacitor</strong></td><td>Crear apps móviles (Android, iOS) con Angular.</td></tr>
+      <tr><td><strong>Nx</strong></td><td>Organizar varios proyectos en un mismo repositorio (monorepo).</td></tr>
+    </tbody>
+  </table>
+  <p>La mayoría de estas herramientas se manejan desde el CLI:</p>
+  <app-codigo [codigo]="codigoHerramientas" />
+</section>
+
+<section>
+  <h3>Angular Material</h3>
+  <p>
+    Es la librería oficial de componentes visuales. Con <code>ng add &#64;angular/material</code> se instala
+    y configura sola; luego cada componente se importa como cualquier otro.
+  </p>
+  <app-codigo [codigo]="codigoMaterial" />
+</section>
+
+<section>
+  <h3>Rendimiento: &#64;defer</h3>
+  <p>
+    <code>&#64;defer</code> divide una página en partes que se descargan <strong>solo cuando hacen falta</strong>:
+    al hacer clic, al aparecer en pantalla, después de un tiempo, etc. Así la carga inicial es más rápida.
+    Los bloques <code>&#64;placeholder</code> y <code>&#64;loading</code> definen qué se ve mientras tanto.
+  </p>
+  <app-codigo [codigo]="codigoDefer" />
+</section>
+
+<section>
+  <h3>Rendimiento: otras optimizaciones</h3>
+  <ul>
+    <li><strong>Signals:</strong> Angular actualiza solo lo que cambió, no toda la página (página 4).</li>
+    <li><strong>Lazy loading de rutas:</strong> cada página se descarga al visitarla (página 6).</li>
+    <li><strong>Zoneless:</strong> sin la librería zone.js, la aplicación pesa menos y detecta cambios más rápido.</li>
+    <li><strong>NgOptimizedImage:</strong> optimiza la carga de imágenes automáticamente.</li>
+    <li><strong>SSR e hidratación:</strong> la página llega ya dibujada desde el servidor (página 10).</li>
+  </ul>
+  <app-codigo [codigo]="codigoZoneless" />
+  <app-codigo [codigo]="codigoImagenes" />
+</section>
+
+<section>
+  <h3>Angular frente a React y Vue</h3>
+  <table>
+    <thead>
+      <tr><th></th><th>Angular</th><th>React</th><th>Vue</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Tipo</strong></td><td>Framework completo</td><td>Librería de interfaz</td><td>Framework progresivo</td></tr>
+      <tr><td><strong>Creado por</strong></td><td>Google (2016)</td><td>Meta (2013)</td><td>Evan You (2014)</td></tr>
+      <tr><td><strong>Lenguaje</strong></td><td>TypeScript</td><td>JavaScript / TypeScript con JSX</td><td>JavaScript / TypeScript</td></tr>
+      <tr><td><strong>Routing, HTTP, formularios</strong></td><td>Incluidos</td><td>Librerías externas</td><td>Librerías oficiales aparte</td></tr>
+      <tr><td><strong>Reactividad</strong></td><td>Signals</td><td>Hooks (<code>useState</code>)</td><td><code>ref</code> / <code>reactive</code></td></tr>
+      <tr><td><strong>Curva de aprendizaje</strong></td><td>Alta</td><td>Media</td><td>Baja</td></tr>
+      <tr><td><strong>Ideal para</strong></td><td>Aplicaciones grandes y empresariales</td><td>Proyectos flexibles, gran comunidad</td><td>Proyectos pequeños y medianos</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h3>Casos de uso</h3>
+  <p>Angular brilla en proyectos grandes, con muchos desarrolladores y que deben mantenerse durante años:</p>
+  <ul>
+    <li><strong>Aplicaciones empresariales:</strong> sistemas internos, ERPs, CRMs.</li>
+    <li><strong>Banca y finanzas:</strong> plataformas con formularios complejos y mucha validación.</li>
+    <li><strong>Paneles de administración y dashboards:</strong> tablas, gráficos y datos en tiempo real.</li>
+    <li><strong>Consolas en la nube:</strong> Google lo usa en productos como Firebase Console y Google Cloud Console.</li>
+  </ul>
+
+  <table>
+    <thead>
+      <tr><th>Ventajas</th><th>Desventajas</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Todo incluido: menos decisiones y menos librerías externas.</td><td>Curva de aprendizaje más alta.</td></tr>
+      <tr><td>TypeScript: detecta errores antes de ejecutar.</td><td>Más código base que otras opciones para proyectos pequeños.</td></tr>
+      <tr><td>Estructura estándar: cualquier proyecto Angular se parece a otro.</td><td>Menos flexible: hay una "forma Angular" de hacer las cosas.</td></tr>
+      <tr><td>Respaldo de Google y actualizaciones predecibles.</td><td>Comunidad más pequeña que la de React.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h3>Demo en vivo: &#64;defer</h3>
+  <p>
+    Abran <strong>F12 → Red (Network)</strong> y filtren por <strong>JS</strong>. El código de estos componentes
+    no se descarga al abrir la página, sino en el momento en que se necesitan.
+  </p>
+  <div class="demo">
+    @defer (on interaction) {
+      <app-frase-aleatoria />
+    } @placeholder {
+      <span style="cursor: pointer">👆 Haz clic aquí para cargar el componente de frases</span>
+    } @loading (minimum 500ms) {
+      <span>Cargando componente...</span>
+    }
+  </div>
+  <div class="demo">
+    @defer (on timer(3s)) {
+      <app-reloj />
+    } @placeholder {
+      <span>⏳ El reloj aparecerá en 3 segundos...</span>
+    }
+  </div>
+</section>
+
+<section class="puntos-clave">
+  <h3>Puntos clave</h3>
+  <ul>
+    <li>Angular es un framework completo: routing, HTTP, formularios, pruebas y SSR vienen incluidos.</li>
+    <li>Su ecosistema incluye el CLI, Angular Material, DevTools, RxJS y NgRx.</li>
+    <li><code>&#64;defer</code>, el lazy loading, los signals y zoneless mejoran el rendimiento.</li>
+    <li>Es ideal para aplicaciones grandes, empresariales y de larga duración.</li>
+  </ul>
+</section>

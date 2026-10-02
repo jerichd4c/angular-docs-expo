@@ -1,1 +1,99 @@
-<p>estado-global works!</p>
+<h2>8. Manejo de estado global</h2>
+<p class="intro">
+  Algunos datos los necesitan muchos componentes a la vez: el usuario conectado, el carrito de compras,
+  el tema claro u oscuro. En lugar de pasarlos de padre a hijo por toda la aplicación, se guardan en un
+  <strong>servicio</strong> que cualquier componente puede usar.
+</p>
+
+<section>
+  <h3>El problema: prop drilling</h3>
+  <p>
+    Con <code>input()</code>, un dato solo puede bajar de padre a hijo. Si un componente muy profundo
+    lo necesita, hay que pasarlo por todos los niveles intermedios, aunque no lo usen. Con un servicio,
+    cada componente lo pide directamente.
+  </p>
+  <app-codigo [codigo]="codigoProblema" />
+</section>
+
+<section>
+  <h3>Servicios con signals</h3>
+  <p>
+    Un servicio es una clase con el decorador <code>&#64;Injectable</code>. Con
+    <code>providedIn: 'root'</code>, Angular crea <strong>una sola instancia</strong> para toda la aplicación
+    (patrón <em>singleton</em>). Si el estado se guarda en signals, cada componente que lo use se actualiza solo.
+  </p>
+  <app-codigo [codigo]="codigoServicio" />
+</section>
+
+<section>
+  <h3>inject(): usar el servicio</h3>
+  <p>
+    Cualquier componente obtiene el servicio con <code>inject()</code>. A esto se le llama
+    <strong>inyección de dependencias</strong>: el componente no crea el servicio, Angular se lo entrega.
+    Como todos reciben la misma instancia, todos comparten el mismo estado.
+  </p>
+  <app-codigo [codigo]="codigoInject" />
+</section>
+
+<section>
+  <h3>Buena práctica: estado privado y métodos públicos</h3>
+  <p>
+    En aplicaciones grandes conviene que solo el servicio pueda modificar el estado. Los componentes
+    lo leen con <code>asReadonly()</code> y lo cambian a través de métodos. Así, si algo falla,
+    se sabe exactamente dónde buscar.
+  </p>
+  <app-codigo [codigo]="codigoBuenaPractica" />
+</section>
+
+<section>
+  <h3>NgRx: para aplicaciones grandes</h3>
+  <p>
+    <strong>NgRx</strong> es la librería de estado más usada en Angular. Su <code>signalStore</code>
+    organiza el estado, los valores derivados y los métodos en una estructura estándar. Para la mayoría
+    de proyectos, un servicio con signals es suficiente.
+  </p>
+  <app-codigo [codigo]="codigoNgrx" />
+
+  <table>
+    <thead>
+      <tr><th>Opción</th><th>Cuándo usarla</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>signal()</code> en el componente</td><td>El dato solo lo usa ese componente.</td></tr>
+      <tr><td><code>input()</code> / <code>output()</code></td><td>El dato se comparte entre padre e hijo.</td></tr>
+      <tr><td>Servicio con signals</td><td>El dato lo usan componentes lejanos o toda la app.</td></tr>
+      <tr><td>NgRx Signal Store</td><td>Aplicaciones grandes con mucho estado y varios equipos.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h3>Demo en vivo</h3>
+  <p>
+    Este indicador y el del menú lateral son <strong>dos componentes distintos</strong> que inyectan
+    el mismo servicio <code>Tema</code>. Hagan clic en cualquiera: los dos cambian, esta página
+    se entera y toda la aplicación cambia de colores.
+  </p>
+  <div class="demo">
+    <app-indicador-tema />
+    <span>
+      Valor actual en el servicio: <code>oscuro = {{ tema.oscuro() }}</code>
+      → tema <strong>{{ tema.oscuro() ? 'oscuro' : 'claro' }}</strong>
+    </span>
+  </div>
+  <p>
+    Prueben también a cambiar el tema y navegar a otra página: se mantiene, porque el servicio
+    vive mientras la aplicación esté abierta.
+  </p>
+</section>
+
+<section class="puntos-clave">
+  <h3>Puntos clave</h3>
+  <ul>
+    <li>El estado global evita pasar datos por muchos niveles de componentes (prop drilling).</li>
+    <li>Un servicio con <code>providedIn: 'root'</code> tiene una sola instancia compartida por toda la app.</li>
+    <li>Los componentes obtienen el servicio con <code>inject()</code>.</li>
+    <li>Buena práctica: estado privado, lectura con <code>asReadonly()</code> y cambios mediante métodos.</li>
+    <li>NgRx Signal Store es la alternativa para aplicaciones grandes.</li>
+  </ul>
+</section>
