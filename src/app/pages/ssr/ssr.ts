@@ -23,7 +23,7 @@ isPlatformBrowser(inject(PLATFORM_ID));
   constructor() {
     // En el servidor: guarda la fecha para enviársela al navegador dentro del HTML
     if (!this.enNavegador) {
-      this.estado.set(CLAVE_FECHA, new Date().toLocaleString());
+      this.estado.set(CLAVE_FECHA, new Date().toLocaleString('es-VE'));
     }
 
     // En el servidor y en el navegador: lee la fecha que generó el servidor
@@ -31,7 +31,7 @@ isPlatformBrowser(inject(PLATFORM_ID));
 
     // Solo en el navegador: momento en que Angular tomó el control (hidratación)
     afterNextRender(() => {
-      this.fechaNavegador.set(new Date().toLocaleString());
+      this.fechaNavegador.set(new Date().toLocaleString('es-VE'));
     });
   }
 
@@ -102,16 +102,16 @@ const enNavegador = isPlatformBrowser(inject(PLATFORM_ID));`;
   constructor() {
   if (!this.enNavegador) {
     // Servidor: guarda la fecha; viaja al navegador dentro del HTML
-    this.estado.set(CLAVE_FECHA, new Date().toLocaleString());
+    this.estado.set(CLAVE_FECHA, new Date().toLocaleString('es-VE'));
   }
   this.fechaServidor = this.estado.get(CLAVE_FECHA, 'No disponible');
 
   afterNextRender(() => {
     // Navegador: momento de la hidratación
-    this.fechaNavegador.set(new Date().toLocaleString());
+    this.fechaNavegador.set(new Date().toLocaleString('es-VE'));
   });
 }`;
 
   readonly codigoProduccion = `ng build                                   # compila y prerenderiza las rutas
-npm run serve:ssr:angular-docs-expo        # ejecuta el servidor de producción`;
+npm run serve:ssr:docs-angular             # ejecuta el servidor de producción`;
 }

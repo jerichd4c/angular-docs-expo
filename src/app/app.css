@@ -10,12 +10,48 @@
   background: #1a1a2e;
   color: #fff;
   padding: 1.5rem 1rem;
+  transition: width 0.2s ease;
+}
+
+.sidebar.colapsada {
+  width: 36px;
+  padding: 1.5rem 0.75rem;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 0 0 1.5rem;
 }
 
 .logo {
   font-size: 1.3rem;
-  margin: 0 0 1.5rem;
+  margin: 0;
   color: #dd0031;
+}
+
+.boton-menu {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 6px;
+  background: #2a2a4a;
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.boton-menu:hover {
+  background: #dd0031;
+}
+
+.boton-menu:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 nav {

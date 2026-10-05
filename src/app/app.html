@@ -1,19 +1,35 @@
 <div class="layout" [class.oscuro]="tema.oscuro()">
-  <aside class="sidebar">
-    <h1 class="logo">Angular Docs</h1>
-    <app-indicador-tema/>
-    <nav>
-      <a routerLink="/instalacion" routerLinkActive="activo">1. Instalación y estructura</a>
-      <a routerLink="/componentes" routerLinkActive="activo">2. Componentes y sintaxis</a>
-      <a routerLink="/comunicacion" routerLinkActive="activo">3. Props y comunicación</a>
-      <a routerLink="/estado" routerLinkActive="activo">4. Estado y reactividad</a>
-      <a routerLink="/ciclo-de-vida" routerLinkActive="activo">5. Ciclo de vida</a>
-      <a routerLink="/routing" routerLinkActive="activo">6. Routing y navegación</a>
-      <a routerLink="/apis" routerLinkActive="activo">7. Consumo de APIs</a>
-      <a routerLink="/estado-global" routerLinkActive="activo">8. Estado global</a>
-      <a routerLink="/ecosistema" routerLinkActive="activo">9. Ecosistema y rendimiento</a>
-      <a routerLink="/ssr" routerLinkActive="activo">10. SSR</a>
-    </nav>
+  <aside class="sidebar" [class.colapsada]="!menuAbierto()">
+    <div class="sidebar-header">
+      @if (menuAbierto()) {
+        <h1 class="logo">Angular Docs</h1>
+      }
+      <button
+        type="button"
+        class="boton-menu"
+        (click)="alternarMenu()"
+        [attr.aria-expanded]="menuAbierto()"
+        [attr.aria-label]="menuAbierto() ? 'Minimizar menú' : 'Expandir menú'"
+        [attr.title]="menuAbierto() ? 'Minimizar menú' : 'Expandir menú'">
+        {{ menuAbierto() ? '«' : '»' }}
+      </button>
+    </div>
+
+    @if (menuAbierto()) {
+      <app-indicador-tema/>
+      <nav>
+        <a routerLink="/instalacion" routerLinkActive="activo">1. Instalación y estructura</a>
+        <a routerLink="/componentes" routerLinkActive="activo">2. Componentes y sintaxis</a>
+        <a routerLink="/comunicacion" routerLinkActive="activo">3. Props y comunicación</a>
+        <a routerLink="/estado" routerLinkActive="activo">4. Estado y reactividad</a>
+        <a routerLink="/ciclo-de-vida" routerLinkActive="activo">5. Ciclo de vida</a>
+        <a routerLink="/routing" routerLinkActive="activo">6. Routing y navegación</a>
+        <a routerLink="/apis" routerLinkActive="activo">7. Consumo de APIs</a>
+        <a routerLink="/estado-global" routerLinkActive="activo">8. Estado global</a>
+        <a routerLink="/ecosistema" routerLinkActive="activo">9. Ecosistema y rendimiento</a>
+        <a routerLink="/ssr" routerLinkActive="activo">10. SSR</a>
+      </nav>
+    }
   </aside>
 
   <main class="contenido">

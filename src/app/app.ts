@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet, RouterLinkActive, RouterLink } from '@angular/router';
 import { IndicadorTema } from './components/indicador-tema/indicador-tema';
 import { Tema } from './services/tema';
@@ -10,4 +10,9 @@ import { Tema } from './services/tema';
 })
 export class App {
  protected readonly tema = inject(Tema);
+ protected readonly menuAbierto = signal(true);
+
+ alternarMenu() {
+   this.menuAbierto.update(valor => !valor);
+ }
 }
