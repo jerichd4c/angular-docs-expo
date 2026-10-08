@@ -1,9 +1,20 @@
 <div class="layout" [class.oscuro]="tema.oscuro()">
-  <aside class="sidebar" [class.colapsada]="!menuAbierto()">
+  <aside class="sidebar" [class.colapsada]="!menuAbierto()" aria-label="Navegación principal">
     <div class="sidebar-header">
-      @if (menuAbierto()) {
-        <h1 class="logo">Angular Docs</h1>
-      }
+      <div class="brand">
+        <svg class="brand-logo" viewBox="0 0 250 250" aria-hidden="true" focusable="false">
+          <polygon fill="#E11D48" points="125,30 125,30 125,30 31.9,63.2 46.1,186.3 125,230 125,230 125,230 203.9,186.3 218.1,63.2" />
+          <polygon fill="#BE123C" points="125,30 125,52.2 125,52.1 125,153.4 125,153.4 125,230 125,230 203.9,186.3 218.1,63.2" />
+          <path fill="#FFFFFF" d="M125,52.1L66.8,182.6h21.7l11.7-29.2h49.4l11.7,29.2H183L125,52.1z M142,135.4H108l17-42.4L142,135.4z"/>
+        </svg>
+        @if (menuAbierto()) {
+          <div class="brand-text">
+            <h1 class="logo">Angular Docs</h1>
+            <span class="version-badge">v22</span>
+          </div>
+        }
+      </div>
+
       <button
         type="button"
         class="boton-menu"
@@ -11,25 +22,78 @@
         [attr.aria-expanded]="menuAbierto()"
         [attr.aria-label]="menuAbierto() ? 'Minimizar menú' : 'Expandir menú'"
         [attr.title]="menuAbierto() ? 'Minimizar menú' : 'Expandir menú'">
-        {{ menuAbierto() ? '«' : '»' }}
+        <svg class="chevron-svg" [class.invertido]="!menuAbierto()" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
       </button>
     </div>
 
-    @if (menuAbierto()) {
-      <app-indicador-tema/>
-      <nav>
-        <a routerLink="/instalacion" routerLinkActive="activo">1. Instalación y estructura</a>
-        <a routerLink="/componentes" routerLinkActive="activo">2. Componentes y sintaxis</a>
-        <a routerLink="/comunicacion" routerLinkActive="activo">3. Props y comunicación</a>
-        <a routerLink="/estado" routerLinkActive="activo">4. Estado y reactividad</a>
-        <a routerLink="/ciclo-de-vida" routerLinkActive="activo">5. Ciclo de vida</a>
-        <a routerLink="/routing" routerLinkActive="activo">6. Routing y navegación</a>
-        <a routerLink="/apis" routerLinkActive="activo">7. Consumo de APIs</a>
-        <a routerLink="/estado-global" routerLinkActive="activo">8. Estado global</a>
-        <a routerLink="/ecosistema" routerLinkActive="activo">9. Ecosistema y rendimiento</a>
-        <a routerLink="/ssr" routerLinkActive="activo">10. SSR</a>
-      </nav>
-    }
+    <div class="sidebar-theme">
+      <app-indicador-tema [colapsado]="!menuAbierto()"/>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/instalacion" routerLinkActive="activo" [attr.title]="!menuAbierto() ? '1. Instalación y estructura' : null">
+        <span class="nav-step">01</span>
+        @if (menuAbierto()) {
+          <span class="nav-label">Instalación y estructura</span>
+        }
+      </a>
+      <a routerLink="/componentes" routerLinkActive="activo" [attr.title]="!menuAbierto() ? '2. Componentes y sintaxis' : null">
+        <span class="nav-step">02</span>
+        @if (menuAbierto()) {
+          <span class="nav-label">Componentes y sintaxis</span>
+        }
+      </a>
+      <a routerLink="/comunicacion" routerLinkActive="activo" [attr.title]="!menuAbierto() ? '3. Props y comunicación' : null">
+        <span class="nav-step">03</span>
+        @if (menuAbierto()) {
+          <span class="nav-label">Props y comunicación</span>
+        }
+      </a>
+      <a routerLink="/estado" routerLinkActive="activo" [attr.title]="!menuAbierto() ? '4. Estado y reactividad' : null">
+        <span class="nav-step">04</span>
+        @if (menuAbierto()) {
+          <span class="nav-label">Estado y reactividad</span>
+        }
+      </a>
+      <a routerLink="/ciclo-de-vida" routerLinkActive="activo" [attr.title]="!menuAbierto() ? '5. Ciclo de vida' : null">
+        <span class="nav-step">05</span>
+        @if (menuAbierto()) {
+          <span class="nav-label">Ciclo de vida</span>
+        }
+      </a>
+      <a routerLink="/routing" routerLinkActive="activo" [attr.title]="!menuAbierto() ? '6. Routing y navegación' : null">
+        <span class="nav-step">06</span>
+        @if (menuAbierto()) {
+          <span class="nav-label">Routing y navegación</span>
+        }
+      </a>
+      <a routerLink="/apis" routerLinkActive="activo" [attr.title]="!menuAbierto() ? '7. Consumo de APIs' : null">
+        <span class="nav-step">07</span>
+        @if (menuAbierto()) {
+          <span class="nav-label">Consumo de APIs</span>
+        }
+      </a>
+      <a routerLink="/estado-global" routerLinkActive="activo" [attr.title]="!menuAbierto() ? '8. Estado global' : null">
+        <span class="nav-step">08</span>
+        @if (menuAbierto()) {
+          <span class="nav-label">Estado global</span>
+        }
+      </a>
+      <a routerLink="/ecosistema" routerLinkActive="activo" [attr.title]="!menuAbierto() ? '9. Ecosistema y rendimiento' : null">
+        <span class="nav-step">09</span>
+        @if (menuAbierto()) {
+          <span class="nav-label">Ecosistema y rendimiento</span>
+        }
+      </a>
+      <a routerLink="/ssr" routerLinkActive="activo" [attr.title]="!menuAbierto() ? '10. SSR (Server-Side)' : null">
+        <span class="nav-step">10</span>
+        @if (menuAbierto()) {
+          <span class="nav-label">SSR (Server-Side)</span>
+        }
+      </a>
+    </nav>
   </aside>
 
   <main class="contenido">

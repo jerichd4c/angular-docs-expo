@@ -1,88 +1,260 @@
+/* ==========================================================================
+   Layout Shell
+   ========================================================================== */
+
 .layout {
   display: flex;
-  min-height: 100vh;
-  font-family: system-ui, sans-serif;
+  height: 100vh;
+  max-height: 100vh;
+  width: 100%;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  overflow: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
+/* ==========================================================================
+   Sidebar Navigation
+   ========================================================================== */
+
 .sidebar {
-  width: 260px;
+  width: 280px;
   flex-shrink: 0;
-  background: #1a1a2e;
-  color: #fff;
-  padding: 1.5rem 1rem;
-  transition: width 0.2s ease;
+  height: 100vh;
+  max-height: 100vh;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  color: var(--sidebar-text);
+  padding: 1.25rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), padding 0.25s ease;
+  z-index: 20;
 }
 
 .sidebar.colapsada {
-  width: 36px;
-  padding: 1.5rem 0.75rem;
+  width: 68px;
+  padding: 1.25rem 0.45rem;
 }
 
+/* Sidebar Header & Brand */
 .sidebar-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  margin: 0 0 1.5rem;
+  margin-bottom: 1rem;
+  min-height: 38px;
+}
+
+.sidebar.colapsada .sidebar-header {
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+  text-decoration: none;
+}
+
+.brand-logo {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 6px var(--color-primary-glow));
+}
+
+.brand-text {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
 }
 
 .logo {
-  font-size: 1.3rem;
+  font-size: 1.05rem;
+  font-weight: 700;
   margin: 0;
-  color: #dd0031;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
+.version-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: var(--color-primary-subtle);
+  border: 1px solid var(--color-primary-border);
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+/* Collapse Toggle Button */
 .boton-menu {
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  border: none;
-  border-radius: 6px;
-  background: #2a2a4a;
-  color: #fff;
-  font-size: 1.2rem;
-  line-height: 1;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .boton-menu:hover {
-  background: #dd0031;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
 .boton-menu:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-nav {
+.chevron-svg {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chevron-svg.invertido {
+  transform: rotate(180deg);
+}
+
+/* Sidebar Theme Toggle Area */
+.sidebar-theme {
+  margin-bottom: 1.25rem;
+}
+
+/* Navigation Links */
+.sidebar-nav {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  flex: 1;
 }
 
-nav a {
-  color: #ccc;
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--sidebar-text);
   text-decoration: none;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
+  padding: 0.52rem 0.7rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.35;
+  transition: all 0.15s ease;
+  position: relative;
+  user-select: none;
 }
 
-nav a:hover {
-  background: #2a2a4a;
-  color: #fff;
+.sidebar-nav a:hover {
+  background: var(--sidebar-item-hover);
+  color: var(--sidebar-text-hover);
 }
 
-nav a.activo {
-  background: #dd0031;
-  color: #fff;
+.sidebar-nav a.activo {
+  background: var(--sidebar-item-active);
+  color: var(--sidebar-text-active);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--sidebar-item-active-border);
 }
+
+.nav-step {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.18rem 0.4rem;
+  border-radius: 5px;
+  background: var(--sidebar-badge-bg);
+  color: var(--sidebar-badge-text);
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.sidebar-nav a.activo .nav-step {
+  background: var(--sidebar-badge-active-bg);
+  color: var(--sidebar-badge-active-text);
+}
+
+.nav-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Collapsed Navigation Styles */
+.sidebar.colapsada .sidebar-nav a {
+  justify-content: center;
+  padding: 0.6rem 0;
+}
+
+.sidebar.colapsada .nav-step {
+  font-size: 0.78rem;
+  padding: 0.25rem 0.45rem;
+}
+
+/* ==========================================================================
+   Main Content Area (Scrolls independently, avoiding infinite extension)
+   ========================================================================== */
 
 .contenido {
   flex: 1;
-  padding: 2rem 3rem;
+  min-width: 0;
+  height: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 2.5rem 3rem 4rem;
+  background-color: var(--bg-app);
+  scroll-behavior: smooth;
 }
 
-.layout.oscuro .contenido {
-  background: #121212;
-  color: #eee;
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid var(--sidebar-border);
+  }
+
+  .sidebar.colapsada {
+    width: 100%;
+  }
+
+  .sidebar.colapsada .sidebar-nav {
+    display: none;
+  }
+
+  .contenido {
+    height: auto;
+    max-height: none;
+    padding: 1.5rem 1.25rem 3rem;
+  }
 }
