@@ -12,10 +12,15 @@ describe('Codigo', () => {
 
     fixture = TestBed.createComponent(Codigo);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('codigo', 'ng serve');
     await fixture.whenStable();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show the given code', () => {
+    expect((fixture.nativeElement as HTMLElement).textContent).toContain('ng serve');
   });
 });

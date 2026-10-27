@@ -12,10 +12,16 @@ describe('Etiqueta', () => {
 
     fixture = TestBed.createComponent(Etiqueta);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('texto', 'Angular');
     await fixture.whenStable();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render the given text', () => {
+    const etiqueta = fixture.nativeElement.querySelector('.etiqueta') as HTMLElement;
+    expect(etiqueta.textContent).toContain('Angular');
   });
 });
