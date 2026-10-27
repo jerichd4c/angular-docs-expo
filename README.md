@@ -171,7 +171,7 @@ The site is deployed on Vercel at [angular-docs-expo.vercel.app](https://angular
 Developed as a group project for the Frameworks course at URU.
 
 * [@jerichd4c](https://github.com/jerichd4c)
-* Jesus Quintero - [@JesusQG](https://github.com/JesusQG)
+* [@JesusQG](https://github.com/JesusQG)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
